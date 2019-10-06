@@ -9,7 +9,6 @@ output: github_document
 ```{r setupcode, include=FALSE}
 library(tidyverse)
 library(viridis)
-library(p8105.datasets)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -28,3 +27,9 @@ theme_set(theme_minimal() + theme(legend.position = "bottom"))
 ```
 
 # Problem 1
+## Loading Instacart data
+
+```{r load_instacart}
+library(p8105.datasets)
+data("instacart")
+```
