@@ -4,10 +4,12 @@ author: "Sophia Miller"
 date: "10/6/2019"
 output: github_document
 ---
+# Initial Set Up
 
 ```{r setupcode, include=FALSE}
 library(tidyverse)
 library(viridis)
+library(p8105.datasets)
 
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -24,4 +26,5 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
 ```
-n
+
+# Problem 1
