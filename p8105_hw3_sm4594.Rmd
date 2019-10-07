@@ -41,12 +41,21 @@ The dataset used here is a cleaned and limited subset of the original Instacart 
 ## Exploratory data analysis of Instacart data
 
  
-```{r}
+```{r aisles}
 instacart %>% 
  summarize(
    n_aisles = n_distinct(aisle_id))
 ```
 
-There are 134 aisles in the Instacart dataset
+There are 134 aisles in the Instacart dataset.
+
+```{r aisle_plot}
+instacart %>% 
+  ggplot(aes(x = aisle, y = ))
+```
+
+
+
+
 
 
