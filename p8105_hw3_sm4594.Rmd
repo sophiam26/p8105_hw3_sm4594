@@ -66,7 +66,7 @@ instacart %>%
     n_items_ordered = n()) %>% 
   mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
   filter(n_items_ordered > 10000) %>% 
-  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Number of Items Ordered per Aisle") + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
@@ -74,12 +74,18 @@ instacart %>%
 
 ```{r popular_items}
 instacart %>% 
-  group_by(aisle) %>%
-    summarize(
-    n_items_ordered = n())
-
-## come back to this 
+  group_by(product_name, aisle) %>%
+  summarize(
+    n_items_ordered = n()
+    ) %>% 
+  group_by(aisle) %>% 
+  filter(
+    aisle %in% c("baking ingredients","dog food care", "packaged vegetables fruits"),
+    min_rank(desc(n_items_ordered)) < 4) %>% 
+  arrange(n_items_ordered, aisle) %>% 
+  knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
 ```
+
 
 ## Make a table showing mean time of day pink lady apples and coffee ice cream are ordered on each day of the week
 
