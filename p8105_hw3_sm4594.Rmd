@@ -58,6 +58,8 @@ names(which.max(table(pull(instacart, aisle))))
 ```
 The most items are ordered from the Fresh Vegetables aisle.
 
+## Plot aisle vs. number of items ordered
+
 ```{r aisle_plot}
 instacart %>% 
   group_by(aisle) %>% 
@@ -69,6 +71,7 @@ instacart %>%
   ggplot(aes(x = n_items_ordered, y = aisle )) + geom_point()
 ```
 
+## Make a table of three most popular items in "baking ingredients", "dog food care", and "packaged fruits and vegetables"
 
 ```{r popular_items}
 instacart %>% 
@@ -78,6 +81,23 @@ instacart %>%
 
 ## come back to this 
 ```
+
+## Make a table showing mean time of day pink lady apples and coffee ice cream are ordered on each day of the week
+
+```{r time_of_day_table}
+instacart %>% 
+  filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>% 
+  mutate(order_dow = as.factor(order_dow)) %>% 
+  arrange(order_dow) %>% 
+  mutate(Day = recode(order_dow, '0' = "Sunday", '1' = "Monday", '2' = "Tuesday", '3' = "Wednesday", '4' = "Thursday", '5' = "Friday", '6' = "Saturday")) %>% 
+  group_by(product_name, Day) %>% 
+  summarize(mean_hour = mean(order_hour_of_day)) %>% 
+  pivot_wider(
+    names_from = product_name,
+    values_from = mean_hour) %>% 
+  knitr::kable(format = 'pandoc', caption = "Table 1. Mean hour of day of item order, by day of week", digits = 0)
+```
+
 
 
 
