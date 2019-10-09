@@ -45,12 +45,16 @@ The dataset used here is a cleaned and limited subset of the original Instacart 
 instacart %>% 
  summarize(
    n_aisles = n_distinct(aisle_id))
+
+## change this to inline r code?
 ```
 
 There are 134 aisles in the Instacart dataset.
 
 ```{r top_aisles}
 names(which.max(table(pull(instacart, aisle))))
+
+## return top three aisles rather than top one
 ```
 The most items are ordered from the Fresh Vegetables aisle.
 
@@ -61,7 +65,7 @@ instacart %>%
     n_items_ordered = n()
   ) %>% 
   filter(n_items_ordered > 10000) %>% 
-  ggplot(aes(x = aisle, y = n_items_ordered)) + geom_point()
+  ggplot(aes(x = n_items_ordered, y = aisle )) + geom_point()
 ```
 
 
