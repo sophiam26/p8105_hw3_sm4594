@@ -49,9 +49,19 @@ instacart %>%
 
 There are 134 aisles in the Instacart dataset.
 
+```{r top_aisles}
+names(which.max(table(pull(instacart, aisle))))
+```
+The most items are ordered from the Fresh Vegetables aisle.
+
 ```{r aisle_plot}
 instacart %>% 
-  ggplot(aes(x = aisle, y = ))
+  group_by(aisle) %>% 
+  summarize(
+    n_items_ordered = n()
+  ) %>% 
+  filter(n_items_ordered > 10000) %>% 
+  ggplot(aes(x = aisle, y = n_items_ordered)) + geom_point()
 ```
 
 
