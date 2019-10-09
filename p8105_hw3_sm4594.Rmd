@@ -64,10 +64,20 @@ instacart %>%
   summarize(
     n_items_ordered = n()
   ) %>% 
+   
   filter(n_items_ordered > 10000) %>% 
   ggplot(aes(x = n_items_ordered, y = aisle )) + geom_point()
 ```
 
+
+```{r popular_items}
+instacart %>% 
+  group_by(aisle) %>%
+    summarize(
+    n_items_ordered = n())
+
+## come back to this 
+```
 
 
 
