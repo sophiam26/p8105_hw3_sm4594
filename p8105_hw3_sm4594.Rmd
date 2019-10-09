@@ -70,7 +70,7 @@ instacart %>%
 ```
 
 
-## Make a table of three most popular items in "baking ingredients", "dog food care", and "packaged fruits and vegetables"
+## Make a table showing the three most popular items in "baking ingredients", "dog food care", and "packaged fruits and vegetables"
 
 ```{r popular_items}
 instacart %>% 
@@ -84,6 +84,7 @@ instacart %>%
     min_rank(desc(n_items_ordered)) < 4) %>% 
   arrange(n_items_ordered, aisle) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
+#check
 ```
 
 
