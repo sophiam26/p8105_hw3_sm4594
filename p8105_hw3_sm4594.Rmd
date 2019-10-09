@@ -66,7 +66,7 @@ instacart %>%
     n_items_ordered = n()) %>% 
   mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
   filter(n_items_ordered > 10000) %>% 
-  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 
@@ -101,7 +101,7 @@ instacart %>%
   pivot_wider(
     names_from = product_name,
     values_from = mean_hour) %>% 
-  knitr::kable(format = 'pandoc', caption = "Table 1. Mean hour of day of item order, by day of week", digits = 0)
+  knitr::kable(format = 'pandoc', caption = "Table 2. Mean hour of day of item order, by day of week", digits = 0)
 ```
 
 # Problem 2
