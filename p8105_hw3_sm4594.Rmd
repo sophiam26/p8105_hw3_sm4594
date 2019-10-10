@@ -4,6 +4,7 @@ author: "Sophia Miller"
 date: "10/6/2019"
 output: github_document
 ---
+
 # Initial Set Up
 
 ```{r setupcode, include=FALSE}
@@ -40,9 +41,9 @@ The dataset used here is a cleaned and limited subset of the original Instacart 
 
 ## Exploratory data analysis of Instacart data
 
-There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle))))`" aisle.
+There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle)))) ## change this to top three?`" aisle.
 
-## Plot aisle vs. number of items ordered
+### The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):
 
 ```{r aisle_plot}
 instacart %>% 
@@ -55,7 +56,7 @@ instacart %>%
 ```
 
 
-## Make a table showing the three most popular items in "baking ingredients", "dog food care", and "packaged fruits and vegetables"
+### The following table shows the three most popular items in the "baking ingredients", "dog food care", and "packaged fruits and vegetables" aisles:
 
 ```{r popular_items}
 instacart %>% 
@@ -69,11 +70,10 @@ instacart %>%
     min_rank(desc(n_items_ordered)) < 4) %>% 
   arrange(n_items_ordered, aisle) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
-#check
 ```
 
 
-## Make a table showing mean time of day pink lady apples and coffee ice cream are ordered on each day of the week
+### The following table shows the mean time of day that pink lady apples and coffee ice cream were ordered on each day of the week:
 
 ```{r time_of_day_table}
 instacart %>% 
