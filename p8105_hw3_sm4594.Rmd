@@ -68,6 +68,8 @@ instacart %>%
     min_rank(desc(n_items_ordered)) < 4) %>% 
   arrange(n_items_ordered, aisle) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
+
+## comment on results of this and other tables/figures??
 ```
 
 
@@ -86,7 +88,7 @@ instacart %>%
     values_from = mean_hour) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 2. Mean hour of day of item order, by day of week", digits = 0)
 
-## convert hour to time variable
+## convert hour to time variable, convert day number to day name directly
 ```
 
 # Problem 2
@@ -106,6 +108,19 @@ brfss_data = brfss_smart2010 %>%
   mutate(response_factor = factor(response, ordered = TRUE))
 ## need to do anything else to names?
 ```
+
+## Exploratory data analysis of BRFSS data
+
+```{r}
+brfss_data %>% 
+  separate(locationdesc, c("state", "county")) %>% 
+  group_by(county, state) %>% 
+  summarize(
+  n_counties = n()) %>% 
+  filter(n_counties >= 7) 
+```
+
+
 
 
 
