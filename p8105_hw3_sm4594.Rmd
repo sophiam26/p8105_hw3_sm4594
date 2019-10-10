@@ -111,13 +111,14 @@ brfss_data = brfss_smart2010 %>%
 
 ## Exploratory data analysis of BRFSS data
 
-```{r}
+```{r common_states}
 brfss_data %>% 
   separate(locationdesc, c("state", "county")) %>% 
-  group_by(county, state) %>% 
+  group_by(state) %>% 
   summarize(
-  n_counties = n()) %>% 
-  filter(n_counties >= 7) 
+  n_counties = n_distinct(county)) %>% 
+  filter(n_counties >= 7) %>% 
+knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
 ```
 
 
