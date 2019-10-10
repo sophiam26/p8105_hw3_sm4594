@@ -113,6 +113,7 @@ brfss_data = brfss_smart2010 %>%
 
 ```{r common_states}
 brfss_data %>% 
+  filter(year == "2002") %>% 
   separate(locationdesc, c("state", "county")) %>% 
   group_by(state) %>% 
   summarize(
