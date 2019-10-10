@@ -96,7 +96,19 @@ instacart %>%
 library(p8105.datasets)
 data("brfss_smart2010") 
 ```
+
+## Cleaning BRFSS data
+
+```{r clean_brfss}
+brfss_data = brfss_smart2010 %>% 
+  janitor::clean_names() %>% 
+  filter(topic == "Overall Health") %>% 
+  mutate(response_factor = factor(response, ordered = TRUE))
+## need to do anything else to names?
 ```
+
+
+
 
 
 
