@@ -149,7 +149,7 @@ ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group =
 
 ## Two-panel plot
 
-```{r}
+```{r brfss_plot}
 brfss_data %>% 
   filter(year %in% c("2006", "2010")) %>%
   select(year, state, response, data_value) %>%
