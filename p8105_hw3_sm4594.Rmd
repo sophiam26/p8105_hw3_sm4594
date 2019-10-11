@@ -111,8 +111,8 @@ brfss_data = brfss_smart2010 %>%
   select(-locationabbr)
 ```
 
-## Exploratory data analysis of BRFSS data
-
+##Exploratory data analysis of BRFSS data
+###Which states were observed at 7 or more locations?
 ```{r common_states}
 brfss_data %>% 
   filter(year == "2002") %>% 
@@ -133,10 +133,18 @@ brfss_data %>%
 knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
 ```
 
+##BRFSS Subset
 
-bfrss_subset = brfss_data %>% 
+
+```{r}
+brfss_subset = brfss_data %>% 
   filter(response == "Excellent") %>% 
-  select(year, state)
+  select(year, state, data_value) %>% 
+  group_by(state) %>%
+  mutate(mean_data_value = mean(data_value, na.rm = TRUE))
+```
+
+
 
 
 
