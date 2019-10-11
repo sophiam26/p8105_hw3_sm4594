@@ -153,7 +153,7 @@ ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group =
 brfss_data %>% 
   filter(year %in% c("2006", "2010")) %>% 
   select(year, state, response, data_value) %>% 
-  ggplot(aes(x = response, y= state)) + geom_point() + facet_grid(~year)
+  ggplot(aes(x = response, y = data_value)) + geom_line(aes(group = response, color = response)) + facet_grid(~year) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 
