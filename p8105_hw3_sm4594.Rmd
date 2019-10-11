@@ -51,6 +51,8 @@ instacart %>%
   mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
   filter(n_items_ordered > 10000) %>% 
   ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
+
+## comment on results of this and other tables/figures??
 ```
 
 
@@ -68,8 +70,6 @@ instacart %>%
     min_rank(desc(n_items_ordered)) < 4) %>% 
   arrange(n_items_ordered, aisle) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
-
-## comment on results of this and other tables/figures??
 ```
 
 
@@ -104,9 +104,11 @@ data("brfss_smart2010")
 ```{r clean_brfss}
 brfss_data = brfss_smart2010 %>% 
   janitor::clean_names() %>% 
+  separate(locationdesc, c("state", "county")) %>% 
   filter(topic == "Overall Health") %>% 
-  mutate(response_factor = factor(response, ordered = TRUE))
-## need to do anything else to names?
+  mutate(response = 
+           factor(response, c("Poor", "Fair", "Good", "Very good", "Excellent"))) %>% 
+  select(-locationabbr)
 ```
 
 ## Exploratory data analysis of BRFSS data
@@ -114,7 +116,16 @@ brfss_data = brfss_smart2010 %>%
 ```{r common_states}
 brfss_data %>% 
   filter(year == "2002") %>% 
-  separate(locationdesc, c("state", "county")) %>% 
+  group_by(state) %>% 
+  summarize(
+  n_counties = n_distinct(county)) %>% 
+  filter(n_counties >= 7) %>% 
+knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
+```
+
+```{r common_states2}
+brfss_data %>% 
+  filter(year == "2010") %>% 
   group_by(state) %>% 
   summarize(
   n_counties = n_distinct(county)) %>% 
@@ -123,7 +134,9 @@ knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more
 ```
 
 
-
+bfrss_subset = brfss_data %>% 
+  filter(response == "Excellent") %>% 
+  select(year, state)
 
 
 
