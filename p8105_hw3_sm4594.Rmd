@@ -161,7 +161,11 @@ brfss_data %>%
 
 ```{r}
 accel_data = read_csv(file = "./data/accel_data.csv") %>% 
-  janitor::clean_names() 
+  janitor::clean_names() %>% 
+  mutate(weekday = day,
+         weekday = recode(weekday, "Monday" = "Weekday", "Tuesday" = "Weekday", "Wednesday" = "Weekday", "Thursday" = "Weekday", "Friday" = "Weekday", "Saturday" = "Weekend", "Sunday" = "Weekend"))
+
+## take out original day variable? better way to recode weekday?
 ```
 
 
