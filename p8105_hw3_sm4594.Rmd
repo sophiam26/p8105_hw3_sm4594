@@ -157,7 +157,7 @@ brfss_data %>%
 ```
 
 # Problem 3
-## Load accel data
+## Load accelerometer data
 
 ```{r}
 accel_data = read_csv(file = "./data/accel_data.csv")
