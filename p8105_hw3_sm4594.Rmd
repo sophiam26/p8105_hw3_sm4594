@@ -160,7 +160,8 @@ brfss_data %>%
 ## Load accelerometer data
 
 ```{r}
-accel_data = read_csv(file = "./data/accel_data.csv")
+accel_data = read_csv(file = "./data/accel_data.csv") %>% 
+  janitor::clean_names() 
 ```
 
 
