@@ -111,8 +111,8 @@ brfss_data = brfss_smart2010 %>%
   select(-locationabbr)
 ```
 
-##Exploratory data analysis of BRFSS data
-###Which states were observed at 7 or more locations?
+## Exploratory data analysis of BRFSS data
+### Which states were observed at 7 or more locations?
 ```{r common_states}
 brfss_data %>% 
   filter(year == "2002") %>% 
@@ -133,8 +133,7 @@ brfss_data %>%
 knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
 ```
 
-##BRFSS Subset
-
+## BRFSS Subset
 
 ```{r brfss_subset}
 brfss_subset = brfss_data %>% 
@@ -144,10 +143,17 @@ brfss_subset = brfss_data %>%
   mutate(mean_data_value = mean(data_value, na.rm = TRUE)) %>% 
   select(-data_value) %>% 
   distinct(.keep_all = TRUE)
+
+ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group = state, color = state))
 ```
 
-```{r spaghetti_plot}
-ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group = state, color = state))
+## Two-panel plot
+
+```{r two_panel}
+brfss_data %>% 
+  filter(year %in% c("2006", "2010")) %>% 
+  select(year, state, response, data_value) %>% 
+  ggplot(aes(x = response, y= state)) + geom_point() + facet_grid(~year)
 ```
 
 
