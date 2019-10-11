@@ -156,6 +156,12 @@ brfss_data %>%
   ggplot(aes(x = response, y = data_value)) + geom_boxplot(aes(color = response)) + facet_grid(~year)
 ```
 
+# Problem 3
+## Load accel data
+
+```{r}
+accel_data = read_csv(file = "./data/accel_data.csv")
+```
 
 
 
