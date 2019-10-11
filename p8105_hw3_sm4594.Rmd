@@ -136,14 +136,19 @@ knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more
 ##BRFSS Subset
 
 
-```{r}
+```{r brfss_subset}
 brfss_subset = brfss_data %>% 
   filter(response == "Excellent") %>% 
-  select(year, state, data_value) %>% 
-  group_by(state) %>%
-  mutate(mean_data_value = mean(data_value, na.rm = TRUE))
+    select(year, state, data_value) %>%
+  group_by(state, year) %>%
+  mutate(mean_data_value = mean(data_value, na.rm = TRUE)) %>% 
+  select(-data_value) %>% 
+  distinct(.keep_all = TRUE)
 ```
 
+```{r spaghetti_plot}
+ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group = state, color = state))
+```
 
 
 
