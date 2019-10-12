@@ -170,11 +170,10 @@ accel_data = read_csv(file = "./data/accel_data.csv") %>%
     weekday_vs_weekend = if_else(day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), "weekday", day), 
     weekday_vs_weekend = if_else(weekday_vs_weekend %in% c("Saturday", "Sunday"), "weekend", weekday_vs_weekend)) %>% 
 separate(minute, c("activity_value", "minute")) %>% 
-select(-activity_value)
+select(-activity_value) 
  
 
 ## take out original day variable? better way to recode weekday? what are variable classes?
-## 
 ```
 
 # Aggregating total activity across each day
