@@ -166,8 +166,9 @@ accel_data = read_csv(file = "./data/accel_data.csv") %>%
     activity_1:activity_1440,
     names_to = "number",
     values_to = "activity") %>% 
-  mutate(weekday = day,
-         weekday = recode(weekday, "Monday" = "Weekday", "Tuesday" = "Weekday", "Wednesday" = "Weekday", "Thursday" = "Weekday", "Friday" = "Weekday", "Saturday" = "Weekend", "Sunday" = "Weekend"))
+  mutate(
+    weekday_vs_weekend = if_else(day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"), "weekday", day), 
+    weekday_vs_weekend = if_else(weekday_vs_weekend %in% c("Saturday", "Sunday"), "weekend", weekday_vs_weekend))
 
 ## take out original day variable? better way to recode weekday? what are variable classes?
 ```
@@ -175,8 +176,7 @@ accel_data = read_csv(file = "./data/accel_data.csv") %>%
 # Aggregating total activity across each day
 ```{r total_activity}
 accel_total = accel_data %>% 
-  mutate(total_activity = rowSums(select(., starts_with("activity")))) %>% 
-  select(week, day_id, day, weekday, total_activity) %>%
+  mutate(total_activity = rowSums(select(., starts_with("activity")))) %>%
   knitr::kable(format = 'pandoc', caption = "Table 5. Total Activity")
 
 #which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
