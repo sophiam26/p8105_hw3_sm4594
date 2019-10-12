@@ -130,7 +130,7 @@ brfss_data %>%
   summarize(
   n_counties = n_distinct(county)) %>% 
   filter(n_counties >= 7) %>% 
-knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
+knitr::kable(format = 'pandoc', caption = "Table 4. States observed in 7 or more counties")
 ```
 
 ## BRFSS Subset
@@ -157,18 +157,28 @@ brfss_data %>%
 ```
 
 # Problem 3
-## Load accelerometer data
+## Load and clean accelerometer data
 
-```{r}
+```{r accel}
 accel_data = read_csv(file = "./data/accel_data.csv") %>% 
   janitor::clean_names() %>% 
   mutate(weekday = day,
          weekday = recode(weekday, "Monday" = "Weekday", "Tuesday" = "Weekday", "Wednesday" = "Weekday", "Thursday" = "Weekday", "Friday" = "Weekday", "Saturday" = "Weekend", "Sunday" = "Weekend"))
 
-## take out original day variable? better way to recode weekday?
+## take out original day variable? better way to recode weekday? what are variable classes?
 ```
 
+```{r total_activity}
+accel_total_activity = accel_data %>% 
+  mutate(total_activity = rowSums(select(., starts_with("activity"))))
+```
 
+```{r total_activity_table}
+accel_total = accel_data %>% 
+  mutate(total_activity = rowSums(select(., starts_with("activity")))) %>% 
+  select(week, day_id, day, weekday, total_activity) %>%
+  knitr::kable(format = 'pandoc', caption = "Table 5. Total Activity")
 
-
+#which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
+```
 
