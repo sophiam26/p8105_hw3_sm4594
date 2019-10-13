@@ -94,14 +94,14 @@ instacart %>%
 As we can see from the table above, both coffee ice cream and pink lady apples tend to be ordered in the afternoon, regardless of the day of the week. On average, coffee ice cream is ordered between 12:00PM and 3:00PM, while pink lady apples are ordered between 11:00AM and 2:00PM.
 
 # Problem 2
-## Loading BRFSS data
+## *Loading BRFSS data*
 
 ```{r load_brfss}
 library(p8105.datasets)
 data("brfss_smart2010") 
 ```
 
-## Cleaning BRFSS data
+## *Cleaning BRFSS data*
 
 ```{r clean_brfss}
 brfss_data = brfss_smart2010 %>% 
@@ -113,8 +113,8 @@ brfss_data = brfss_smart2010 %>%
   select(-locationabbr)
 ```
 
-## Exploratory data analysis of BRFSS data
-### Which states were observed at 7 or more locations?
+## *Exploratory data analysis of BRFSS data*
+Which states were observed at 7 or more locations?
 ```{r common_states}
 brfss_data %>% 
   filter(year == "2002") %>% 
@@ -135,7 +135,7 @@ brfss_data %>%
 knitr::kable(format = 'pandoc', caption = "Table 4. States observed in 7 or more counties")
 ```
 
-## BRFSS Subset
+BRFSS Subset
 
 ```{r brfss_subset}
 brfss_subset = brfss_data %>% 
@@ -149,7 +149,7 @@ brfss_subset = brfss_data %>%
 ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + geom_line(aes(group = state, color = state))
 ```
 
-## Two-panel plot
+Two-panel plot
 
 ```{r brfss_plot}
 brfss_data %>% 
