@@ -37,11 +37,11 @@ data("instacart")
 
 The dataset used here is a cleaned and limited subset of the original Instacart data. Each row in this dataset represents a single product from an Instacart order. There are `r nrow(instacart)` rows and `r ncol(instacart)` columns in the dataset. Each observation has an order identifier (`order_id`), product identifier (`product_id`), and customer identifier (`user_id`). Key variables include `reordered`, which indicates  if the product has been ordered by the customer in the past month, `order_dow`, which indicates which day of the week the order was placed, `days_since_prior_order`, which indicates the number of days since the customer's last order, and `product_name`, which is the name of the product ordered. For example, the mean number of days between orders is `r round(mean(pull(instacart, days_since_prior_order)), 0)`, the mean hour of the day during which products from the ice cream aisle were ordered is `r round(mean(pull(filter(instacart, aisle == "ice cream ice"), order_hour_of_day)), 0)` (2:00PM), and the total number of products ordered from the "specialty cheeses" aisle in the dataset is `r nrow(filter(instacart, aisle == "specialty cheeses"))`.
 
-## *Exploratory data analysis of Instacart data*
+## *Exploratory analysis of Instacart dataset*
 
-There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle)))) ## change this to top three?`" aisle.
+There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle))))" aisle.
 
-### *The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):*
+The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):
 
 ```{r aisle_plot}
 instacart %>% 
@@ -51,12 +51,11 @@ instacart %>%
   mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
   filter(n_items_ordered > 10000) %>% 
   ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
-
-## comment on results of this and other tables/figures??
 ```
 
+As we can see from the plot above, the "fresh vegetables" and "fresh fruits" aisles are the most popular aisles, with approximately 150,000 items ordered from each. The least popular aisles are the "butter" and "oils vinegars" aisles.
 
-### The following table shows the three most popular items in the "baking ingredients", "dog food care", and "packaged fruits and vegetables" aisles:
+The following table shows the three most popular items in the "baking ingredients", "dog food care", and "packaged fruits and vegetables" aisles:
 
 ```{r popular_items}
 instacart %>% 
@@ -72,8 +71,9 @@ instacart %>%
   knitr::kable(format = 'pandoc', caption = "Table 1. Most popular items by aisle")
 ```
 
+As we can see from the table above, the most popular item ordered from the "dog food" aisle is snack sticks chicken & rice recipe dog treats, the most popular item ordered from the "baking ingredients" aisle is light brown sugar, and the most popular item ordered from the "packaged fruits and vegetables" aisle is organic baby spinach.
 
-### The following table shows the mean time of day that pink lady apples and coffee ice cream were ordered on each day of the week:
+The following table shows the mean time of day that pink lady apples and coffee ice cream were ordered on each day of the week:
 
 ```{r time_of_day_table}
 instacart %>% 
@@ -88,8 +88,10 @@ instacart %>%
     values_from = mean_hour) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 2. Mean hour of day of item order, by day of week", digits = 0)
 
-## convert hour to time variable, convert day number to day name directly
+## convert hour to time variable
 ```
+
+As we can see from the table above, both coffee ice cream and pink lady apples tend to be ordered in the afternoon, regardless of the day of the week. On average, coffee ice cream is ordered between 12:00PM and 3:00PM, while pink lady apples are ordered between 11:00AM and 2:00PM.
 
 # Problem 2
 ## Loading BRFSS data
