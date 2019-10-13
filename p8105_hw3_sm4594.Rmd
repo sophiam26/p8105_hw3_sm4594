@@ -114,26 +114,21 @@ brfss_data = brfss_smart2010 %>%
 ```
 
 ## *Exploratory data analysis of BRFSS data*
-Which states were observed at 7 or more locations?
+
+Here, we can see which states were observed at 7 or more locations in 2002 and 2010: 
+
 ```{r common_states}
 brfss_data %>% 
-  filter(year == "2002") %>% 
-  group_by(state) %>% 
+  filter(year %in% c("2002", "2010")) %>% 
+  group_by(state, year) %>% 
   summarize(
   n_counties = n_distinct(county)) %>% 
   filter(n_counties >= 7) %>% 
-knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties")
+  arrange(year) %>% 
+knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more counties, 2002 and 2010")
 ```
 
-```{r common_states2}
-brfss_data %>% 
-  filter(year == "2010") %>% 
-  group_by(state) %>% 
-  summarize(
-  n_counties = n_distinct(county)) %>% 
-  filter(n_counties >= 7) %>% 
-knitr::kable(format = 'pandoc', caption = "Table 4. States observed in 7 or more counties")
-```
+According to the table above, there were 5 states observed at 7 or more locations in 2002, and 14 states observed at 7 or more locations in 2010. In 2002, the state observed at the most locations was Pennsylvania. In 2010, the state observed at the most locations was Florida. 
 
 BRFSS Subset
 
@@ -177,6 +172,7 @@ separate(minute, c("activity_value", "minute")) %>%
 select(-activity_value) %>% 
   mutate(minute = as.numeric(minute))
 ```
+
 # Aggregating total activity across each day
 
 ```{r total_activity}
