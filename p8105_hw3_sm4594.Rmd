@@ -26,22 +26,22 @@ theme_set(theme_minimal() + theme(legend.position = "bottom"))
 ```
 
 # Problem 1
-## Loading Instacart data
+## *Loading Instacart data*
 
 ```{r load_instacart}
 library(p8105.datasets)
 data("instacart")
 ```
 
-## Description of Instacart Dataset
+## *Description of Instacart dataset*
 
 The dataset used here is a cleaned and limited subset of the original Instacart data. Each row in this dataset represents a single product from an Instacart order. There are `r nrow(instacart)` rows and `r ncol(instacart)` columns in the dataset. Each observation has an order identifier (`order_id`), product identifier (`product_id`), and customer identifier (`user_id`). Key variables include `reordered`, which indicates  if the product has been ordered by the customer in the past month, `order_dow`, which indicates which day of the week the order was placed, `days_since_prior_order`, which indicates the number of days since the customer's last order, and `product_name`, which is the name of the product ordered. For example, the mean number of days between orders is `r round(mean(pull(instacart, days_since_prior_order)), 0)`, the mean hour of the day during which products from the ice cream aisle were ordered is `r round(mean(pull(filter(instacart, aisle == "ice cream ice"), order_hour_of_day)), 0)` (2:00PM), and the total number of products ordered from the "specialty cheeses" aisle in the dataset is `r nrow(filter(instacart, aisle == "specialty cheeses"))`.
 
-## Exploratory data analysis of Instacart data
+## *Exploratory data analysis of Instacart data*
 
 There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle)))) ## change this to top three?`" aisle.
 
-### The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):
+### *The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):*
 
 ```{r aisle_plot}
 instacart %>% 
