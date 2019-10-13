@@ -192,8 +192,13 @@ accel_data %>%
 #which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
 ```
 
-
 # Time plot
+
+```{r 24hr_activity_plot}
+accel_data %>% 
+  ggplot(aes(x = minute, y = activity)) + geom_point(aes(group = day, color = day))
+```
+
 
 
 
