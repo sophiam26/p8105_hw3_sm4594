@@ -155,8 +155,10 @@ brfss_data %>%
   ggplot(aes(x = response, y = data_value)) + geom_boxplot(aes(color = response)) + facet_grid(~year) + ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
+As we can see in Figure 3, the response with the hightest data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest data value and widest distribution.
+
 # Problem 3
-## Load and clean accelerometer data
+## *Loading and cleaning accelerometer data*
 
 ```{r accel}
 accel_data = read_csv(file = "./data/accel_data.csv") %>% 
