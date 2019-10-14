@@ -48,9 +48,15 @@ instacart %>%
   group_by(aisle) %>% 
   summarize(
     n_items_ordered = n()) %>% 
-  mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
-  filter(n_items_ordered > 10000) %>% 
-  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ylab("Number of Items Ordered") + xlab("Aisle") + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
+  mutate(
+    aisle = reorder(aisle, n_items_ordered)) %>% 
+  filter(
+    n_items_ordered > 10000) %>% 
+  ggplot(aes(x = aisle, y = n_items_ordered)) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  geom_col() + ylab("Number of Items Ordered") + xlab("Aisle") + 
+  ggtitle("Figure 1. Number of items ordered per aisle") + 
+  theme(plot.title = element_text(hjust = 0.5))
 ```
 
 As we can see from the plot above, the "fresh vegetables" and "fresh fruits" aisles are the most popular aisles, with approximately 150,000 items ordered from each. The least popular aisles are the "butter" and "oils vinegars" aisles.
@@ -61,8 +67,7 @@ The following table shows the three most popular items in the "baking ingredient
 instacart %>% 
   group_by(product_name, aisle) %>%
   summarize(
-    n_items_ordered = n()
-    ) %>% 
+    n_items_ordered = n()) %>% 
   group_by(aisle) %>% 
   filter(
     aisle %in% c("baking ingredients","dog food care", "packaged vegetables fruits"),
@@ -78,11 +83,14 @@ The following table shows the mean time of day that pink lady apples and coffee 
 ```{r time_of_day_table}
 instacart %>% 
   filter(product_name %in% c("Pink Lady Apples", "Coffee Ice Cream")) %>% 
-  mutate(order_dow = as.factor(order_dow)) %>% 
+  mutate(
+    order_dow = as.factor(order_dow)) %>% 
   arrange(order_dow) %>% 
-  mutate(Day = recode(order_dow, '0' = "Sunday", '1' = "Monday", '2' = "Tuesday", '3' = "Wednesday", '4' = "Thursday", '5' = "Friday", '6' = "Saturday")) %>% 
+  mutate(
+    Day = recode(order_dow, '0' = "Sunday", '1' = "Monday", '2' = "Tuesday", '3' = "Wednesday", '4' = "Thursday", '5' = "Friday", '6' = "Saturday")) %>% 
   group_by(product_name, Day) %>% 
-  summarize(mean_hour = mean(order_hour_of_day)) %>% 
+  summarize(
+    mean_hour = mean(order_hour_of_day)) %>% 
   pivot_wider(
     names_from = product_name,
     values_from = mean_hour) %>% 
@@ -106,10 +114,12 @@ data("brfss_smart2010")
 ```{r clean_brfss}
 brfss_data = brfss_smart2010 %>% 
   janitor::clean_names() %>% 
-  separate(locationdesc, c("state", "county")) %>% 
-  filter(topic == "Overall Health") %>% 
-  mutate(response = 
-           factor(response, c("Poor", "Fair", "Good", "Very good", "Excellent"))) %>% 
+  separate(
+    locationdesc, c("state", "county")) %>% 
+  filter(
+    topic == "Overall Health") %>% 
+  mutate(
+    response = factor(response, c("Poor", "Fair", "Good", "Very good", "Excellent"))) %>% 
   select(-locationabbr)
 ```
 
@@ -119,7 +129,8 @@ Here, we can see which states were observed at 7 or more locations in 2002 and 2
 
 ```{r common_states}
 brfss_data %>% 
-  filter(year %in% c("2002", "2010")) %>% 
+  filter(
+    year %in% c("2002", "2010")) %>% 
   group_by(state, year) %>% 
   summarize(
   n_counties = n_distinct(county)) %>% 
@@ -134,10 +145,12 @@ Here we are creating a subset of the BRFSS dataset that is limited to only `Exce
 
 ```{r brfss_subset}
 brfss_subset = brfss_data %>% 
-  filter(response == "Excellent") %>% 
+  filter(
+    response == "Excellent") %>% 
     select(year, state, data_value) %>%
   group_by(state, year) %>%
-  mutate(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
+  mutate(
+    mean_data_value = mean(data_value, na.rm = TRUE)) %>%
   select(-data_value) %>% 
   distinct(.keep_all = TRUE)
 
@@ -154,9 +167,15 @@ The plot below shows the distribution of `data_value` responses among locations 
 
 ```{r brfss_plot}
 brfss_data %>% 
-  filter(year %in% c("2006", "2010"), state %in% c("NY")) %>%
+  filter(
+    year %in% c("2006", "2010"), state %in% c("NY")) %>%
   select(year, state, response, data_value) %>%
-  ggplot(aes(x = response, y = data_value)) + geom_boxplot(aes(color = response)) + facet_grid(~year) + ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + theme(plot.title = element_text(hjust = 0.5)) + ylab("Data Value") +
+  ggplot(aes(x = response, y = data_value)) + 
+  geom_boxplot(aes(color = response)) + 
+  facet_grid(~year) + 
+  ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + 
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylab("Data Value") +
   xlab("Response") +
   labs(color = "")
 ```
@@ -169,7 +188,7 @@ As we can see in Figure 3, the response with the hightest data value in 2006 was
 ```{r accel}
 accel_data = read_csv(file = "./data/accel_data.csv") %>% 
   janitor::clean_names() %>%
-   pivot_longer(
+  pivot_longer(
     activity_1:activity_1440,
     names_to = "minute",
     values_to = "activity") %>% 
@@ -178,8 +197,8 @@ accel_data = read_csv(file = "./data/accel_data.csv") %>%
     weekday_vs_weekend = if_else(weekday_vs_weekend %in% c("Saturday", "Sunday"), "weekend", weekday_vs_weekend),
     day =  factor(day, c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")),
     ) %>%
-separate(minute, c("activity_value", "minute")) %>% 
-select(-activity_value) %>% 
+  separate(minute, c("activity_value", "minute")) %>%
+  select(-activity_value) %>% 
   mutate(minute = as.numeric(minute))
 ```
 
@@ -190,7 +209,8 @@ The accelerometer dataset has `r nrow(accel_data)` rows and `r ncol(accel_data)`
 ```{r total_activity_plot}
 accel_data %>% 
   group_by(week, day) %>% 
-  mutate(total_activity = sum(activity)) %>% 
+  mutate(
+    total_activity = sum(activity)) %>% 
   select(week, day, total_activity) %>% 
   distinct(.keep_all = TRUE) %>% 
   arrange(week, day) %>% 
@@ -199,17 +219,18 @@ accel_data %>%
 #which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
 ```
 
-
 # Time plot
 
 ```{r 24hr_activity_plot}
 accel_data %>%
   arrange(minute) %>% 
-  ggplot(aes(x = minute, y = activity)) + geom_point(aes(color = day), alpha = 0.7) + scale_x_continuous(
+  ggplot(aes(x = minute, y = activity)) + 
+  geom_point(aes(color = day), alpha = 0.7) + 
+  scale_x_continuous(
     name = "Time of Day", 
     breaks = c(1, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840, 900, 960, 1020, 1080, 1140, 1200, 1260, 1320, 1380, 1440),
-    labels = c("12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM", "12AM")
-  ) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+    labels = c("12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM", "12AM")) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ylab("Activity Level") + labs(color = "Day") +
   ggtitle("Figure 4. Activity Levels Over 24 Hour Time Period") +
   theme(plot.title = element_text(hjust = 0.5))
