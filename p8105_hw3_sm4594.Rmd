@@ -178,7 +178,7 @@ brfss_data %>%
   labs(color = "")
 ```
 
-As we can see in Figure 3, the response with the hightest average data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest average data value and widest distribution. In both 2006 and 2010, the "very good" and "good" responses have the highest average data value, which the "poor" and "fair" responses have the lowest average data value.
+As we can see in Figure 3, the response with the hightest average data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest average data value and widest distribution. In both 2006 and 2010, the "very good" and "good" responses have the highest average data value, while the "poor" and "fair" responses have the lowest average data value.
 
 # Problem 3
 ## *Loading and cleaning accelerometer data*
