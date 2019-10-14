@@ -139,7 +139,7 @@ knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more
 
 According to the table above, there were 5 states observed at 7 or more locations in 2002, and 14 states observed at 7 or more locations in 2010. In 2002, the state observed at the most locations was Pennsylvania. In 2010, the state observed at the most locations was Florida. 
 
-Here we are creating a subset of the BRFSS dataset that is limited to only `Excellent` responses, and contains the year and state variables as well as a new variable that averages the `data_value` across locations within a state:
+Here we are creating a subset of the BRFSS dataset that is limited to only `Excellent` responses and contains the year and state variables as well as a new variable that averages the `data_value` across locations within a state, then plotting the average value over time within states:
 
 ```{r brfss_subset}
 brfss_subset = brfss_data %>% 
@@ -154,7 +154,7 @@ brfss_subset = brfss_data %>%
 
 ggplot(brfss_subset, aes(x = year, y = mean_data_value)) + 
   geom_line(aes(group = state)) + 
-  ggtitle("Figure 2. Average Data Value Across Locations within States") + 
+  ggtitle("Figure 2. Average data value across locations within states") + 
   theme(plot.title = element_text(hjust = 0.5)) +
   ylab("Mean Data Value") +
   xlab("Year")
