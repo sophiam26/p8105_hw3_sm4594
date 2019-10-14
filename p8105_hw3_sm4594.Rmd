@@ -35,7 +35,7 @@ data("instacart")
 
 ## *Description of Instacart dataset*
 
-The dataset used here is a cleaned and limited subset of the original Instacart dataset. Each row in this dataset represents a single product from an Instacart order. There are `r nrow(instacart)` rows and `r ncol(instacart)` columns in the dataset. Each observation has an order identifier (`order_id`), product identifier (`product_id`), and customer identifier (`user_id`). Key variables include `reordered`, which indicates  if the product has been ordered by the customer in the past month, `order_dow`, which indicates which day of the week the order was placed, `days_since_prior_order`, which indicates the number of days since the customer's last order, and `product_name` and `aisle`, which is the name of the product ordered and aisle from which it is ordered, respectively. For example, the mean number of days between orders is `r round(mean(pull(instacart, days_since_prior_order)), 0)`, the mean hour of the day during which products from the ice cream aisle were ordered is `r round(mean(pull(filter(instacart, aisle == "ice cream ice"), order_hour_of_day)), 0)` (2:00PM), and the total number of products ordered from the "specialty cheeses" aisle in the dataset is `r nrow(filter(instacart, aisle == "specialty cheeses"))`.
+The dataset used here is a cleaned and limited subset of the original Instacart dataset. Each row in this dataset represents a single product from an Instacart order. There are `r nrow(instacart)` rows and `r ncol(instacart)` columns in the dataset. Each observation has an order identifier (`order_id`), product identifier (`product_id`), and customer identifier (`user_id`). Key variables include `reordered`, which indicates  if the product has been ordered by the customer in the past month, `order_dow`, which indicates which day of the week the order was placed, `days_since_prior_order`, which indicates the number of days since the customer's last order, and `product_name` and `aisle`, which are the name of the product ordered and aisle from which it is ordered, respectively. For example, the mean number of days between orders is `r round(mean(pull(instacart, days_since_prior_order)), 0)`, the mean hour of the day during which products from the ice cream aisle were ordered is `r round(mean(pull(filter(instacart, aisle == "ice cream ice"), order_hour_of_day)), 0)` (2:00PM), and the total number of products ordered from the "specialty cheeses" aisle in the dataset is `r nrow(filter(instacart, aisle == "specialty cheeses"))`.
 
 ## *Exploratory analysis of Instacart dataset*
 
@@ -112,12 +112,12 @@ data("brfss_smart2010")
 ```{r clean_brfss}
 brfss_data = brfss_smart2010 %>% 
   janitor::clean_names() %>% 
-  separate(
-    locationdesc, c("state", "county")) %>% 
   filter(
     topic == "Overall Health") %>% 
   mutate(
     response = factor(response, c("Poor", "Fair", "Good", "Very good", "Excellent"))) %>% 
+  separate(
+    locationdesc, c("state", "county")) %>% 
   select(-locationabbr)
 ```
 
