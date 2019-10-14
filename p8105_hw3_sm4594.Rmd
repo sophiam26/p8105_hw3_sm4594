@@ -214,6 +214,7 @@ accel_data %>%
   arrange(week, day) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 4. Total activity by day and week")
 ```
+It is difficult to observe any meaningful trends in total activity per day when looking at Table 4. However, it appears that there were lower activity levels on weekends during weeks 3 and 4 when compared to weeks 2 and 3. On Saturdays during week 3 and 4, activity levels were very low compared to all other days of observation.
 
 # *Plotting 24-hour activity time course*
 
