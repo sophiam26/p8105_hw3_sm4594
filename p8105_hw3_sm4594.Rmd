@@ -95,8 +95,6 @@ instacart %>%
     names_from = product_name,
     values_from = mean_hour) %>% 
   knitr::kable(format = 'pandoc', caption = "Table 2. Mean hour of day of item order, by day of week", digits = 0)
-
-## convert hour to time variable
 ```
 
 As we can see from the table above, both coffee ice cream and pink lady apples tend to be ordered in the afternoon, regardless of the day of the week. On average, coffee ice cream is ordered between 12:00PM and 3:00PM, while pink lady apples are ordered between 11:00AM and 2:00PM.
@@ -163,6 +161,7 @@ ggplot(brfss_subset, aes(x = year, y = mean_data_value)) +
 ```
 According to Figure 2, the mean data value across states tends to fall between 20 and 25.
 
+
 The plot below shows the distribution of `data_value` responses among locations in New York state in 2006 and 2010:
 
 ```{r brfss_plot}
@@ -180,7 +179,7 @@ brfss_data %>%
   labs(color = "")
 ```
 
-As we can see in Figure 3, the response with the hightest data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest data value and widest distribution.
+As we can see in Figure 3, the response with the hightest average data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest average data value and widest distribution.
 
 # Problem 3
 ## *Loading and cleaning accelerometer data*
