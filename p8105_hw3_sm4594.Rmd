@@ -188,7 +188,7 @@ accel_data %>%
   select(week, day, total_activity) %>% 
   distinct(.keep_all = TRUE) %>% 
   arrange(week, day) %>% 
-  knitr::kable(format = 'pandoc', caption = "Table 5. Total Activity by Day and Week")
+  knitr::kable(format = 'pandoc', caption = "Table 4. Total Activity by Day and Week")
 
 #which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
 ```
@@ -198,7 +198,12 @@ accel_data %>%
 
 ```{r 24hr_activity_plot}
 accel_data %>%
-  ggplot(aes(x = minute, y = activity)) + geom_point(aes(group = day, color = day), alpha = 0.4) + geom_smooth(aes(group = day, color = day, se = FALSE))
+  arrange(minute) %>% 
+  ggplot(aes(x = minute, y = activity)) + geom_point(aes(color = day), alpha = 0.7) + scale_x_continuous(
+    name = "Time of Day", 
+    breaks = c(1, 60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720, 780, 840, 900, 1020, 1080, 1140, 1200, 1260, 1320, 1380, 1440),
+    labels = c("12AM", "1AM", "2AM", "3AM", "4AM", "5AM", "6AM", "7AM", "8AM", "9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM", "6PM", "7PM", "8PM", "9PM", "10PM", "11PM")
+  )
 ```
 
 
