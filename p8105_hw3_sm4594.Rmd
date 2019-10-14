@@ -50,7 +50,7 @@ instacart %>%
     n_items_ordered = n()) %>% 
   mutate(aisle = reorder(aisle, n_items_ordered)) %>% 
   filter(n_items_ordered > 10000) %>% 
-  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(aes(x = aisle, y = n_items_ordered)) + theme(axis.text.x = element_text(angle = 45, hjust = 1)) + geom_col() + ylab("Number of Items Ordered") + xlab("Aisle") + ggtitle("Figure 1. Number of items ordered per aisle") + theme(plot.title = element_text(hjust = 0.5))
 ```
 
 As we can see from the plot above, the "fresh vegetables" and "fresh fruits" aisles are the most popular aisles, with approximately 150,000 items ordered from each. The least popular aisles are the "butter" and "oils vinegars" aisles.
@@ -208,6 +208,8 @@ accel_data %>%
   ggtitle("Figure 4. Activity Levels Over 24 Hour Time Period") +
   theme(plot.title = element_text(hjust = 0.5))
 ```
+
+As we can see in the plot above, there appear to be spikes in acitivity levels around 7AM, 11AM, 5PM, and 9PM. It also appears that on weekends, more activity occurs in the afternoon (paticularly on Sundays), while on weekdays there is more acitivty at night.
 
 
 
