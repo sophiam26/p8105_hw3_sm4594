@@ -130,7 +130,7 @@ knitr::kable(format = 'pandoc', caption = "Table 3. States observed in 7 or more
 
 According to the table above, there were 5 states observed at 7 or more locations in 2002, and 14 states observed at 7 or more locations in 2010. In 2002, the state observed at the most locations was Pennsylvania. In 2010, the state observed at the most locations was Florida. 
 
-Here we are creating a subset of the BRFSS dataset that is limited to only `Excellent` responses, and contains the year and state variables as well as a new variable indicating if the day of observation is during the week or weekend:
+Here we are creating a subset of the BRFSS dataset that is limited to only `Excellent` responses, and contains the year and state variables as well as a new variable that averages the `data_value` across locations within a state:
 
 ```{r brfss_subset}
 brfss_subset = brfss_data %>% 
@@ -177,7 +177,9 @@ select(-activity_value) %>%
   mutate(minute = as.numeric(minute))
 ```
 
-# Aggregating total activity across each day
+The accelerometer dataset has `r nrow(accel_data)` rows and `r ncol(accel_data)` columns. The 6 variables in the dataset include `week`, which indicates which of the four observation weeks a particular observation comes from, `day_id`, which is a unique identifier for each day durng which data was collected, `day`, which indicates day of the week, `minute` and `activity`, which indicate the minute of the day for each data point and the activity score for that minute, respectively, and `weekend_vs_weekday`, which indicates if the day of observation was during the week or weekend.
+
+# *Aggregating total activity across each day*
 
 ```{r total_activity}
 accel_data %>% 
@@ -190,6 +192,7 @@ accel_data %>%
 
 #which variables should be included in addition to total_activity? Should we just observe trends or do an analysis?
 ```
+
 
 # Time plot
 
