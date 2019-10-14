@@ -161,7 +161,6 @@ ggplot(brfss_subset, aes(x = year, y = mean_data_value)) +
 ```
 According to Figure 2, the mean data value across states tends to fall between 20 and 25.
 
-
 The plot below shows the distribution of `data_value` responses among locations in New York state in 2006 and 2010:
 
 ```{r brfss_plot}
@@ -172,7 +171,7 @@ brfss_data %>%
   ggplot(aes(x = response, y = data_value)) + 
   geom_boxplot(aes(color = response)) + 
   facet_grid(~year) + 
-  ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + 
+  ggtitle("Figure 3. Distribution of data value responses among locations in NY State, 2006 and 2010") + 
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylab("Data Value") +
   xlab("Response") +
