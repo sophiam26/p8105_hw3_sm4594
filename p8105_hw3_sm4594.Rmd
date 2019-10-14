@@ -156,7 +156,9 @@ The plot below shows the distribution of `data_value` responses among locations 
 brfss_data %>% 
   filter(year %in% c("2006", "2010"), state %in% c("NY")) %>%
   select(year, state, response, data_value) %>%
-  ggplot(aes(x = response, y = data_value)) + geom_boxplot(aes(color = response)) + facet_grid(~year) + ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + theme(plot.title = element_text(hjust = 0.5))
+  ggplot(aes(x = response, y = data_value)) + geom_boxplot(aes(color = response)) + facet_grid(~year) + ggtitle("Figure 3. Distribution of data value responses among locations in New York State, 2006 and 2010") + theme(plot.title = element_text(hjust = 0.5)) + ylab("Data Value") +
+  xlab("Response") +
+  labs(color = "")
 ```
 
 As we can see in Figure 3, the response with the hightest data value in 2006 was "very good", while the response "good" had the widest distribution. In 2010, the response "very good" had both the highest data value and widest distribution.
