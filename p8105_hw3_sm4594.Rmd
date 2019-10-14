@@ -39,7 +39,7 @@ The dataset used here is a cleaned and limited subset of the original Instacart 
 
 ## *Exploratory analysis of Instacart dataset*
 
-There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle))))" aisle.
+There are `r nrow(distinct(instacart, aisle))` aisles in the dataset, and the most items are ordered from the "`r names(which.max(table(pull(instacart, aisle))))`" aisle.
 
 The following plot shows the numbers of items ordered from each aisle (limited to aisles with more than 10,000 items ordered):
 
